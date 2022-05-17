@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_package = "com.example.usermanagement.api.v1.proto";
+option java_outer_classname = "MessageProto";
+
+message User {
+  int64 id = 1;
+  string email = 2;
+  string firstName = 3;
+  string lastName = 4;
+  string creationDate = 5;
+  string updateDate = 6;
+}
+
+message GetUsers {
+  message Response {
+    repeated User users = 1;
+  }
+}

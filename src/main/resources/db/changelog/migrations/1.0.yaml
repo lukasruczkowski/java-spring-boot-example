@@ -1,0 +1,43 @@
+---
+databaseChangeLog:
+  - changeSet:
+      id: 20220517133742-1
+      author: lruczkowski
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: user_id_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creation_date
+                  type: TIMESTAMP
+                  defaultValueDate: current_timestamp()
+              - column:
+                  constraints:
+                    nullable: false
+                  name: update_date
+                  type: TIMESTAMP
+                  defaultValueDate: current_timestamp()
+              - column:
+                  constraints:
+                    nullable: false
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: last_name
+                  type: VARCHAR(255)
+            tableName: user
