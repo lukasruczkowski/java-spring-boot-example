@@ -4,6 +4,7 @@ import com.example.usermanagement.api.v1.proto.MessageProto;
 import com.example.usermanagement.user.User;
 import com.example.usermanagement.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -20,14 +21,16 @@ public class GetUsersHandler {
     this.userService = userService;
   }
 
-  public MessageProto.GetUsers.Response getUsers() {
-    return buildResponse(userService.getUsers());
+  public MessageProto.GetUsers.Response getUsers(int offset, int limit) {
+    Page<User> pageUsers = userService.getUsers(offset, limit);
+    return buildResponse(pageUsers.getContent(), pageUsers.getTotalElements());
   }
 
-  private MessageProto.GetUsers.Response buildResponse(List<User> users) {
+  private MessageProto.GetUsers.Response buildResponse(List<User> users, long totalCount) {
     return MessageProto.GetUsers.Response
         .newBuilder()
         .addAllUsers(HandlerUtil.buildResponseUsers(users))
+        .setTotalCount(totalCount)
         .build();
   }
 }

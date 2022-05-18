@@ -3,9 +3,10 @@ package com.example.usermanagement.user;
 import com.example.usermanagement.exceptions.NotFoundException;
 import com.example.usermanagement.utils.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,8 +56,9 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public List<User> getUsers() {
-    return (List<User>) userRepository.findAll();
+  public Page<User> getUsers(int offset, int limit) {
+    PageRequest pageRequest = PageRequest.of(offset, limit);
+    return userRepository.findAll(pageRequest);
   }
 
   @Override

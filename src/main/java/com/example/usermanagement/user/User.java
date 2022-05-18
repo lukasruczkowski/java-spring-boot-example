@@ -85,4 +85,16 @@ public class User {
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
+
+  @PrePersist
+  private void onCreation() {
+    final Date creationDate = new Date();
+    this.setCreationDate(creationDate);
+    this.setUpdateDate(creationDate);
+  }
+
+  @PreUpdate
+  private void onUpdate() {
+    this.setUpdateDate(new Date());
+  }
 }
